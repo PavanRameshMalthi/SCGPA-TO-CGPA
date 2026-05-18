@@ -1,82 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SGPA to CGPA Converter</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>SGPA to CGPA Converter</h1>
 
-    <div id="inputs">
-      <input type="number" step="0.01" max="10" min="0" placeholder="Semester 1" class="scgpa"><br>
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>CGPA Calculator</title>
+
+  <!-- Google Font -->
+
+  <link rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Icons -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <!-- Theme Toggle -->
+
+  <button
+    class="theme-toggle"
+    id="themeToggle"
+  >
+    <i class="fa-solid fa-moon"></i>
+  </button>
+
+  <div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+      <h1>CGPA Calculator</h1>
+
+      <p>
+        Calculate your CGPA and Percentage instantly
+      </p>
+
     </div>
 
-    <button onclick="addSemester()">➕ Add Semester</button>
-    <button onclick="calculateCGPA()">✅ Calculate CGPA</button>
-    <button onclick="resetForm()">🔁 Reset</button>
+    <!-- Stats -->
 
-    <h2 id="result">Your CGPA: --</h2>
+    <div class="stats">
+
+      <div class="stat-card">
+
+        <h3 id="semesterCount">0</h3>
+
+        <p>Semesters</p>
+
+      </div>
+
+      <div class="stat-card">
+
+        <h3 id="creditCount">0</h3>
+
+        <p>Total Credits</p>
+
+      </div>
+
+    </div>
+
+    <!-- Semester Cards -->
+
+    <div id="semesters"></div>
+
+    <!-- Empty State -->
+
+    <div
+      class="empty-state"
+      id="emptyState"
+    >
+
+      <i class="fa-solid fa-graduation-cap"></i>
+
+      <p>
+        No semesters added yet
+      </p>
+
+    </div>
+
+    <!-- Buttons -->
+
+    <div class="buttons">
+
+      <button
+        id="addSemesterBtn"
+        class="add-btn"
+      >
+
+        <i class="fa-solid fa-plus"></i>
+
+        Add Semester
+
+      </button>
+
+      <button
+        id="calculateBtn"
+        class="calculate-btn"
+      >
+
+        <i class="fa-solid fa-calculator"></i>
+
+        Calculate
+
+      </button>
+
+      <button
+        id="resetBtn"
+        class="reset-btn"
+      >
+
+        <i class="fa-solid fa-rotate-right"></i>
+
+        Reset
+
+      </button>
+
+    </div>
+
+    <!-- Result -->
+
+    <div id="result"></div>
+
   </div>
 
-  <script>
-    let semesterCount = 1;
+  <script src="script.js"></script>
 
-    function addSemester() {
-      if (semesterCount >= 8) {
-        alert("Maximum 8 semesters allowed!");
-        return;
-      }
-
-      semesterCount++;
-      const inputDiv = document.getElementById("inputs");
-      const newInput = document.createElement("input");
-      newInput.type = "number";
-      newInput.step = "0.01";
-      newInput.max = "10";
-      newInput.min = "0";
-      newInput.placeholder = `Semester ${semesterCount}`;
-      newInput.className = "scgpa";
-      inputDiv.appendChild(newInput);
-      inputDiv.appendChild(document.createElement("br"));
-    }
-
-    function calculateCGPA() {
-      const inputs = document.querySelectorAll('.scgpa');
-      let total = 0;
-      let count = 0;
-
-      for (let input of inputs) {
-        const val = parseFloat(input.value);
-        if (!isNaN(val)) {
-          if (val > 10 || val < 0) {
-            alert("Please enter valid SCGPA values between 0 and 10.");
-            return;
-          }
-          total += val;
-          count++;
-        }
-      }
-
-      if (count < 1) {
-        alert("Please enter at least 1 SCGPA value.");
-        return;
-      }
-
-      const cgpa = total / count;
-      document.getElementById('result').innerText = "Your CGPA: " + cgpa.toFixed(2);
-    }
-
-    function resetForm() {
-      const inputDiv = document.getElementById("inputs");
-      inputDiv.innerHTML = `
-        <input type="number" step="0.01" max="10" min="0" placeholder="Semester 1" class="scgpa"><br>
-      `;
-      semesterCount = 1;
-      document.getElementById('result').innerText = "Your CGPA: --";
-    }
-  </script>
 </body>
+
 </html>
